@@ -19,7 +19,7 @@ const Builder = () => {
     (dropZone, item) => {
       console.log(dropZone);
       console.log(item);
-
+      
       setLayout([...handleDropEvent(layout, dropZone, item)]);
       return;
     },
@@ -33,6 +33,8 @@ const Builder = () => {
         data={section}
         handleDrop={handleDrop}
         path={currentPath}
+        layout={layout}
+        setLayout = {setLayout}
       />
     );
   };

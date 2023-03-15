@@ -3,9 +3,10 @@ import { useDrag } from "react-dnd";
 import { SECTION } from "./constants";
 import DropZone from "./DropZone";
 import SubSection from "./SubSection";
+import Tabs from "./Tabs";
 import { SUBSECTION, CANVAS } from "./constants";
 
-const Section = ({ data, components, handleDrop, path }) => {
+const Section = ({ data, components, handleDrop, path, layout, setLayout }) => {
   const ref = useRef(null);
 
   const [{ isDragging }, drag] = useDrag({
@@ -39,6 +40,7 @@ const Section = ({ data, components, handleDrop, path }) => {
 
   return (
     <div ref={ref} style={{ opacity, flexGrow : data.size/12 }} className="base draggable row">
+      <Tabs layout={layout} setLayout={setLayout} data={data} />
       {data.id}
       <div className="columns">
         {data.children.map((column, index) => {
