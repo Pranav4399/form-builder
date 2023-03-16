@@ -5,7 +5,8 @@ import { COMPONENT, SIDEBAR_ITEM, SECTION, SUBSECTION } from "./constants";
 
 const ACCEPTS = [SIDEBAR_ITEM, COMPONENT, SECTION, SUBSECTION];
 
-const DropZone = ({ style, data, onDrop, isLast, className }) => {
+const DropZone = ({style, data, onDrop, isLast, className }) => {
+
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: ACCEPTS,
     drop: (item, monitor) => {
@@ -14,16 +15,22 @@ const DropZone = ({ style, data, onDrop, isLast, className }) => {
     canDrop: (item, monitor) => {
       const dropZonePath = data.path;
       const itemPath = item.path;
+      
       // sidebar items can always be dropped anywhere
       if (!itemPath) {
-        // if (data.childrenCount >= 3) {
-        //  return false;
-        // }
         return true;
       }
 
-      if (itemPath === dropZonePath) return false;
+      if(itemPath.length < dropZonePath.length)
+        return false;
+      
+      if(JSON.stringify([...itemPath.slice(0,-1), parseInt(itemPath.slice(-1)) + 1]) 
+      === JSON.stringify(dropZonePath))
+        return false;
 
+      if (itemPath === dropZonePath)
+        return false;
+      
       return true;
     },
     collect: (monitor) => ({

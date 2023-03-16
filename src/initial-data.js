@@ -18,10 +18,12 @@ const initialData = {
               id: "subsection0",
               children: [
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component0"
                 },
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component1"
                 }
@@ -33,6 +35,7 @@ const initialData = {
               id: "subsection1",
               children: [
                 {
+                  size: 4,
                   type: COMPONENT,
                   id: "component2"
                 }
@@ -51,14 +54,17 @@ const initialData = {
               id: "subsection2",
               children: [
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component3"
                 },
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component4"
                 },
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component5"
                 }
@@ -85,10 +91,12 @@ const initialData = {
               id: "subsection0",
               children: [
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component0"
                 },
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component1"
                 }
@@ -100,6 +108,7 @@ const initialData = {
               id: "subsection1",
               children: [
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component2"
                 }
@@ -118,14 +127,17 @@ const initialData = {
               id: "subsection2",
               children: [
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component3"
                 },
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component4"
                 },
                 {
+                  size: 2,
                   type: COMPONENT,
                   id: "component5"
                 }

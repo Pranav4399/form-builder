@@ -25,11 +25,11 @@ const Section = ({ data, components, handleDrop, path }) => {
   const opacity = isDragging ? 0 : 1;
   drag(ref);
 
-  const renderSection = (column, currentPath) => {
+  const renderSection = (section, currentPath) => {
     return (
       <SubSection
-        key={column.id}
-        data={column}
+        key={section.id}
+        data={section}
         components={components}
         handleDrop={handleDrop}
         path={currentPath}
@@ -38,14 +38,14 @@ const Section = ({ data, components, handleDrop, path }) => {
   };
 
   return (
-    <div ref={ref} style={{ opacity, flexGrow : data.size/12 }} className="base draggable row">
-      {data.id}
-      <div className="columns">
-        {data.children.map((column, index) => {
+    <div ref={ref} style={{ opacity, flexGrow : data.size/12 }} className="base draggable section">
+      <div className="sectionLabel">{data.id}{' '}{data.size}</div>
+      <div className="sections">
+        {data.children.map((section, index) => {
           const currentPath = [...path, index];
 
           return (
-            <React.Fragment key={column.id}>
+            <React.Fragment key={section.id}>
               <DropZone
                 data={{
                   path: currentPath,
@@ -55,7 +55,7 @@ const Section = ({ data, components, handleDrop, path }) => {
                 onDrop={handleDrop}
                 className="horizontalDrag"
               />
-              {renderSection(column, currentPath)}
+              {renderSection(section, currentPath)}
             </React.Fragment>
           );
         })}
