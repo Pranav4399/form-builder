@@ -1,5 +1,5 @@
 import shortid from "shortid";
-import { SECTION, SUBSECTION, COMPONENT, SUPERSECTION, NEW, CANVAS } from "./constants";
+import { SECTION, SUBSECTION, SUBCOMPONENT, COMPONENT, SUPERSECTION, NEW, CANVAS, HEIRARCHY } from "./constants";
 
 //--------------------------------
 
@@ -28,13 +28,23 @@ export const insert = (arr, index, newItem) => [
   ...arr.slice(index)
 ];
 
-const heirarchy = [SUPERSECTION, SECTION, SUBSECTION, COMPONENT];
+export const insertModify = (arr, index, newItem) => {
+  let predecessor = arr.slice(0, index)[0];
+  newItem.size = predecessor.size = predecessor.size/2;
+  return [
+  // part of the array before the specified index
+  predecessor,
+  // inserted item
+  newItem
+  ];
+};
+
 
 export const wrapItemRecursive = (item, targetType) => {
   while (item.type !== targetType) {
-    let curIndex = heirarchy.indexOf(item.type);
+    let curIndex = HEIRARCHY.indexOf(item.type);
     item = {
-      type: heirarchy[curIndex-1],
+      type: HEIRARCHY[curIndex-1],
       id: shortid.generate(),
       children: [
         item
@@ -55,7 +65,8 @@ export const handleDropEvent = (layout, dropZone, item) => {
       return layout;
     }
 
-    return insert(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type))
+    return dropZone.modify == true? insertModify(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type))
+    : insert(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type));
 
   }
 
@@ -76,3 +87,4 @@ export const handleDropEvent = (layout, dropZone, item) => {
     return insertJSONRecursive(layout, 0, dropZone.path.length - 1);
   }
 }
+

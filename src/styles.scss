@@ -51,7 +51,7 @@ body {
     width: auto;
   }
 
-  .columns {
+  .sections {
     width: auto;
     min-height: 40px;
   
@@ -78,28 +78,26 @@ body {
   background: #aaa;
 }
 
-.column {
+.subSection {
   border: 1px solid blue;
   flex: 1 1 100%;
-  padding: 10px;
 }
 
-.columns {
+.sections {
   display: flex;
   padding: 20px 0;
 }
 
-.columnContainer {
+.sectionContainer {
   display: flex;
 }
 
 .base {
-  padding: 0.5rem 1rem;
   background-color: white;
   cursor: move;
 }
 
-.row {
+.section {
   border: 1px solid red;
   padding: 0;
 }
@@ -117,7 +115,11 @@ body {
   cursor: move;
 }
 
-.sectionContainer {
+.sectionContainer,.subSectionContainer   {
   display: flex;
   flex-direction: row;
+}
+
+.sectionLabel,.subSectionLabel {
+  display: block;
 }

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useDrag } from "react-dnd";
-import { COMPONENT, SUBSECTION, CANVAS } from "./constants";
+import { SUBCOMPONENT, COMPONENT, SUBSECTION, CANVAS } from "./constants";
 import DropZone from "./DropZone";
 import Component from "./Component";
 
@@ -39,11 +39,13 @@ const SubSection = ({ data, components, handleDrop, path }) => {
     <div
       ref={ref}
       style={{ ...style, opacity }}
-      className="base draggable column"
+      className="base draggable subSection"
     >
-      {data.id}
+      <div className="subSectionLabel">{data.id}{' '}{data.size}</div>
+      <div className="subSectionContainer">
       {data.children.map((component, index) => {
         const currentPath = [...path, index];
+        const siblingPath = [...path, index + 1];
 
         return (
           <React.Fragment key={component.id}>
@@ -54,8 +56,29 @@ const SubSection = ({ data, components, handleDrop, path }) => {
                 type: COMPONENT
               }}
               onDrop={handleDrop}
+              className="horizontalDrag"
             />
+            {(component.size>2) && <DropZone
+              data={{
+                path: currentPath,
+                childrenCount: data.children.length,
+                type: COMPONENT,
+                modify: true
+              }}
+              onDrop={handleDrop}
+              className="horizontalDrag"
+            />}
             {renderComponent(component, currentPath)}
+            {(component.size>2) && <DropZone
+              data={{
+                path: siblingPath,
+                childrenCount: data.children.length,
+                type: COMPONENT,
+                modify: true
+              }}
+              onDrop={handleDrop}
+              className="horizontalDrag"
+            />}
           </React.Fragment>
         );
       })}
@@ -66,8 +89,10 @@ const SubSection = ({ data, components, handleDrop, path }) => {
           type: COMPONENT
         }}
         onDrop={handleDrop}
+        className="horizontalDrag"
         isLast
       />
+      </div>
     </div>
   );
 };
