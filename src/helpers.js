@@ -43,36 +43,45 @@ export const insertModify = (arr, index, newItem) => {
 export const handleDropEvent = (layout, dropZone, item) => {
 
   
-  const wrapItemRecursive = (item, targetType) => {
+  const wrapItemRecursive = (item, targetType, availableSize) => {
     while (item.type !== targetType) {
       let curIndex = HEIRARCHY.indexOf(item.type);
       item = {
         type: HEIRARCHY[curIndex-1],
         id: shortid.generate(),
-        size: fitItemRecursive(item),
         children: [
-          item
+          {
+            ...item,
+            size: availableSize,
+          }
         ]
       }
 
       wrapItemRecursive(item, targetType);
     }
 
+    item = {
+      ...item,
+      size: availableSize
+    }
+    
     return item;
   }
 
-  const fitItemRecursive = (item) => {
-    
-  }
-
-  const insertJSONRecursive = (layout, i, target) => {
+  const insertJSONRecursive = (layout, i, target, parentSize) => {
     if(i != target) {
-      layout[dropZone.path[i]].children = insertJSONRecursive(layout[dropZone.path[i]].children, ++i, target);
+      layout[dropZone.path[i]].children = insertJSONRecursive(layout[dropZone.path[i]].children, ++i, target, layout[dropZone.path[i]].size);
       return layout;
     }
 
-    return dropZone.modify == true? insertModify(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type))
-    : insert(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type));
+    let availableSize = parentSize;
+    
+    //if dropping at new supersection level
+    if(target.length > 1)
+      availableSize-= layout.map(el => el.size).reduce((a,b) => {return a+b});
+
+    return dropZone.modify == true? insertModify(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type, availableSize))
+    : insert(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type, availableSize));
 
   }
 
@@ -87,10 +96,10 @@ export const handleDropEvent = (layout, dropZone, item) => {
   }
 
   if(item.origin === NEW)
-    return insertJSONRecursive(layout, 0, dropZone.path.length - 1);
+    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, 12);
   else {
     layout = removeJSONRecursive(layout, 0, item.path.length - 1);
-    return insertJSONRecursive(layout, 0, dropZone.path.length - 1);
+    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, 12);
   }
 }
 
