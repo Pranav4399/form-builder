@@ -62,11 +62,6 @@ const initialData = {
                   size: 2,
                   type: COMPONENT,
                   id: "component4"
-                },
-                {
-                  size: 2,
-                  type: COMPONENT,
-                  id: "component5"
                 }
               ]
             }
@@ -135,11 +130,6 @@ const initialData = {
                   size: 2,
                   type: COMPONENT,
                   id: "component4"
-                },
-                {
-                  size: 2,
-                  type: COMPONENT,
-                  id: "component5"
                 }
               ]
             }

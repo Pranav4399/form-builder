@@ -50,7 +50,7 @@ const Builder = () => {
         <div className="page">
           {layout.map((el, supersectionindex) => {
 
-            let sectionSize = 12;
+            let availableSize = 12;
 
             return <>
               <DropZone
@@ -65,7 +65,7 @@ const Builder = () => {
               <div className="sectionContainer">
                 {el.children.map((section, index) => {
 
-                  sectionSize-= section.size;
+                  availableSize-= section.size;
                   
 
                   return (
@@ -74,9 +74,9 @@ const Builder = () => {
                     </React.Fragment>
                   );
                 })}
-                {(sectionSize > 0) && 
+                {(availableSize > 0) && 
                 <DropZone 
-                  style={{ flexGrow : sectionSize/12 }}
+                  style={{ flexGrow : availableSize/12 }}
                   data={{
                     path: [supersectionindex, el.children.length],
                     childrenCount: el.children.length,
