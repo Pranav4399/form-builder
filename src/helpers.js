@@ -30,13 +30,26 @@ export const insert = (arr, index, newItem) => [
 
 export const insertModify = (arr, index, newItem) => {
   let predecessor = arr.slice(0, index)[0];
-  newItem.size = predecessor.size = predecessor.size/2;
-  return [
-  // part of the array before the specified index
-  predecessor,
-  // inserted item
-  newItem
-  ];
+  let successor = arr.slice(index)[0];
+  if(predecessor) {
+    newItem.size = predecessor.size = predecessor.size/2;
+    return [
+    // part of the array before the specified index
+    predecessor,
+    // inserted item
+    newItem
+    ];
+  }
+  else {
+    newItem.size = successor.size = successor.size/2;
+    return [
+    // inserted item
+    newItem,
+    // part of the array after the specified index
+    successor
+    ];
+  }
+  
 };
 
 
@@ -52,7 +65,7 @@ export const handleDropEvent = (layout, dropZone, item) => {
         children: [
           {
             ...item,
-            size: availableSize,
+            size: availableSize
           }
         ]
       }
@@ -69,15 +82,24 @@ export const handleDropEvent = (layout, dropZone, item) => {
   }
 
   const insertJSONRecursive = (layout, i, target, parentSize) => {
+
+    console.log(layout);
     if(i != target) {
-      layout[dropZone.path[i]].children = insertJSONRecursive(layout[dropZone.path[i]].children, ++i, target, layout[dropZone.path[i]].size);
+
+      let layoutChildren = layout[dropZone.path[i]].children;
+      let layoutSize = layout[dropZone.path[i]].size;
+
+      layout[dropZone.path[i]].children = insertJSONRecursive(layoutChildren, ++i, target, layoutSize);
       return layout;
     }
 
     let availableSize = parentSize;
+
+    if(item.size < availableSize)
+      availableSize = item.size;
     
     //if dropping at new supersection level
-    if(target.length > 1)
+    if(target > 1)
       availableSize-= layout.map(el => el.size).reduce((a,b) => {return a+b});
 
     return dropZone.modify == true? insertModify(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type, availableSize))
