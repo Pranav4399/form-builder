@@ -40,24 +40,30 @@ export const insertModify = (arr, index, newItem) => {
 };
 
 
-export const wrapItemRecursive = (item, targetType) => {
-  while (item.type !== targetType) {
-    let curIndex = HEIRARCHY.indexOf(item.type);
-    item = {
-      type: HEIRARCHY[curIndex-1],
-      id: shortid.generate(),
-      children: [
-        item
-      ]
+export const handleDropEvent = (layout, dropZone, item) => {
+
+  
+  const wrapItemRecursive = (item, targetType) => {
+    while (item.type !== targetType) {
+      let curIndex = HEIRARCHY.indexOf(item.type);
+      item = {
+        type: HEIRARCHY[curIndex-1],
+        id: shortid.generate(),
+        size: fitItemRecursive(item),
+        children: [
+          item
+        ]
+      }
+
+      wrapItemRecursive(item, targetType);
     }
 
-    wrapItemRecursive(item, targetType);
+    return item;
   }
 
-  return item;
-}
-
-export const handleDropEvent = (layout, dropZone, item) => {
+  const fitItemRecursive = (item) => {
+    
+  }
 
   const insertJSONRecursive = (layout, i, target) => {
     if(i != target) {

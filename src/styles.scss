@@ -36,12 +36,12 @@ body {
 
 .dropZone {
   flex: 0 0 auto;
-  height: 40px;
+  height: 10px;
   transition: 200ms all;
 }
 
 .dropZone.horizontalDrag {
-  width: 40px;
+  width: 10px;
   height: auto;
 }
 
@@ -51,7 +51,7 @@ body {
     width: auto;
   }
 
-  .sections {
+  .subSectionContainer {
     width: auto;
     min-height: 40px;
   
@@ -83,14 +83,11 @@ body {
   flex: 1 1 100%;
 }
 
-.sections {
+.subSectionContainer,.sectionContainer {
   display: flex;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
-.sectionContainer {
-  display: flex;
-}
 
 .base {
   background-color: white;
@@ -115,9 +112,17 @@ body {
   cursor: move;
 }
 
-.sectionContainer,.subSectionContainer   {
+.sectionContainer,.componentContainer {
   display: flex;
   flex-direction: row;
+}
+
+.componentContainer {
+  flex-wrap: wrap;
+  min-height: 60px;
+  & > .dropZone.horizontalDrag.isLast:only-child {
+    width: 100%;
+  }
 }
 
 .sectionLabel,.subSectionLabel {

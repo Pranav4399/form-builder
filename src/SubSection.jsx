@@ -5,7 +5,7 @@ import DropZone from "./DropZone";
 import Component from "./Component";
 
 const style = {};
-const SubSection = ({ data, components, handleDrop, path }) => {
+const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
   const ref = useRef(null);
 
   const [{ isDragging }, drag] = useDrag({
@@ -24,13 +24,14 @@ const SubSection = ({ data, components, handleDrop, path }) => {
   const opacity = isDragging ? 0 : 1;
   drag(ref);
 
-  const renderComponent = (component, currentPath) => {
+  const renderComponent = (component, currentPath, subSectionSize) => {
     return (
       <Component
         key={component.id}
         data={component}
         components={components}
         path={currentPath}
+        subSectionSize={subSectionSize}
       />
     );
   };
@@ -38,11 +39,11 @@ const SubSection = ({ data, components, handleDrop, path }) => {
   return (
     <div
       ref={ref}
-      style={{ ...style, opacity }}
+      style={{ ...style, opacity, flex: data.size/sectionSize }}
       className="base draggable subSection"
     >
       <div className="subSectionLabel">{data.id}{' '}{data.size}</div>
-      <div className="subSectionContainer">
+      <div className="componentContainer">
       {data.children.map((component, index) => {
         const currentPath = [...path, index];
         const siblingPath = [...path, index + 1];
@@ -68,7 +69,7 @@ const SubSection = ({ data, components, handleDrop, path }) => {
               onDrop={handleDrop}
               className="horizontalDrag"
             />}
-            {renderComponent(component, currentPath)}
+            {renderComponent(component, currentPath, data.size)}
             {(component.size>2) && <DropZone
               data={{
                 path: siblingPath,

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useDrag } from "react-dnd";
 import { COMPONENT, CANVAS } from "./constants";
 
-const Component = ({ data, path }) => {
+const Component = ({ data, path, subSectionSize }) => {
   const ref = useRef(null);
 
   const [{ isDragging }, drag] = useDrag({
@@ -22,7 +22,7 @@ const Component = ({ data, path }) => {
   return (
     <div
       ref={ref}
-      style={{ opacity }}
+      style={{ opacity, flex: data.size/subSectionSize }}
       className="component draggable"
     >
       <div>{data.id}{' '}{data.size}</div>
