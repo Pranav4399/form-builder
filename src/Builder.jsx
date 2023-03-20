@@ -8,7 +8,7 @@ import {
   handleDropEvent
 } from "./helpers";
 
-import { SIDEBAR_ITEMS, SUPERSECTION, SECTION } from "./constants";
+import { SIDEBAR_ITEMS, SUPERSECTION, SECTION, SUPERSECTION_SIZE } from "./constants";
 import shortid from "shortid";
 
 const Builder = () => {
@@ -50,7 +50,7 @@ const Builder = () => {
         <div className="page">
           {layout.map((el, supersectionindex) => {
 
-            let availableSize = 12;
+            let availableSize = SUPERSECTION_SIZE;
 
             return <>
               <DropZone
@@ -60,7 +60,7 @@ const Builder = () => {
                   type: SUPERSECTION
                 }}
                 onDrop={handleDrop}
-                availableSize={availableSize}
+                availableSize={SUPERSECTION_SIZE}
                 path={[supersectionindex]}
               />
               <div className="sectionContainer">
@@ -77,7 +77,7 @@ const Builder = () => {
                 })}
                 {(availableSize > 0) && 
                 <DropZone 
-                  style={{ flexGrow : availableSize/12 }}
+                  style={{ flexGrow : availableSize/SUPERSECTION_SIZE }}
                   data={{
                     path: [supersectionindex, el.children.length],
                     childrenCount: el.children.length,
@@ -99,7 +99,7 @@ const Builder = () => {
               type: SUPERSECTION
             }}
             onDrop={handleDrop}
-            availableSize={12}
+            availableSize={SUPERSECTION_SIZE}
             isLast
           />
         </div>

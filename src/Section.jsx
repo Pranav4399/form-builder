@@ -43,7 +43,7 @@ const Section = ({ data, components, handleDrop, path }) => {
   };
 
   return (
-    <div ref={ref} style={{ opacity, flex : data.size/12 }} className="base draggable section">
+    <div ref={ref} style={{ opacity, flex : data.size/SUPERSECTION_SIZE }} className="base draggable section">
       <div className="sectionLabel">{data.id}{' '}{data.size}</div>
       <div className="subSectionContainer">
         {data.children.map((subSection, index) => {
