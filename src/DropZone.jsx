@@ -21,13 +21,16 @@ const DropZone = ({style, data, onDrop, isLast, className }) => {
         return true;
       }
 
+      // parent container cannot be dropped in child container
       if(itemPath.length < dropZonePath.length)
         return false;
       
+      // prevent dropping in itself(right)  
       if(JSON.stringify([...itemPath.slice(0,-1), parseInt(itemPath.slice(-1)) + 1]) 
       === JSON.stringify(dropZonePath))
         return false;
 
+      // prevent dropping in itself(left)  
       if (itemPath === dropZonePath)
         return false;
       
