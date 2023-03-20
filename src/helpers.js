@@ -1,5 +1,5 @@
 import shortid from "shortid";
-import { SECTION, SUBSECTION, SUBCOMPONENT, COMPONENT, SUPERSECTION, NEW, CANVAS, HEIRARCHY } from "./constants";
+import { SECTION, SUBSECTION, SUBCOMPONENT, COMPONENT, SUPERSECTION, NEW, CANVAS, HEIRARCHY, SUPERSECTION_SIZE } from "./constants";
 
 //--------------------------------
 
@@ -118,10 +118,11 @@ export const handleDropEvent = (layout, dropZone, item) => {
   }
 
   if(item.origin === NEW)
-    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, 12);
+    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, SUPERSECTION_SIZE);
   else {
     layout = removeJSONRecursive(layout, 0, item.path.length - 1);
-    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, 12);
+    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, SUPERSECTION_SIZE);
   }
 }
 
+export const  getAvailableSize = (data) => (data.size - data.children.reduce((a, b) => a + b.size, 0));

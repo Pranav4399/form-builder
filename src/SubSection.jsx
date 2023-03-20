@@ -3,13 +3,14 @@ import { useDrag } from "react-dnd";
 import { SUBCOMPONENT, COMPONENT, SUBSECTION, CANVAS } from "./constants";
 import DropZone from "./DropZone";
 import Component from "./Component";
+import { getAvailableSize } from "./helpers";
 
 const style = {};
 const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
   const ref = useRef(null);
 
   //Line that adds the all the component's size and subtracts it from the subsection's size to find the available size inside the subsection
-  const [availableSize, setAvailableSize] = useState(() => data.size - data.children.reduce((a, b) => a + b.size, 0));
+  const [availableSize, setAvailableSize] = useState(getAvailableSize(data));
 
   const [{ isDragging }, drag] = useDrag({
     item: {
