@@ -60,6 +60,7 @@ const Builder = () => {
                   type: SUPERSECTION
                 }}
                 onDrop={handleDrop}
+                availableSize={availableSize}
                 path={[supersectionindex]}
               />
               <div className="sectionContainer">
@@ -84,6 +85,7 @@ const Builder = () => {
                   }}
                   className="horizontalDrag"
                   onDrop={handleDrop}
+                  availableSize={availableSize}
                   isLast
                 />}
               </div>
@@ -97,6 +99,7 @@ const Builder = () => {
               type: SUPERSECTION
             }}
             onDrop={handleDrop}
+            availableSize={12}
             isLast
           />
         </div>

@@ -5,7 +5,7 @@ import { COMPONENT, SIDEBAR_ITEM, SECTION, SUBSECTION } from "./constants";
 
 const ACCEPTS = [SIDEBAR_ITEM, COMPONENT, SECTION, SUBSECTION];
 
-const DropZone = ({style, data, onDrop, isLast, className }) => {
+const DropZone = ({style, data, onDrop, isLast, className, availableSize }) => {
 
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: ACCEPTS,
@@ -48,6 +48,7 @@ const DropZone = ({style, data, onDrop, isLast, className }) => {
         className
       )}
       ref={drop}
+      availablesize={availableSize}
     />
   );
 };
