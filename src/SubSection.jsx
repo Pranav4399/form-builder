@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDrag } from "react-dnd";
 import { SUBCOMPONENT, COMPONENT, SUBSECTION, CANVAS } from "./constants";
 import DropZone from "./DropZone";
@@ -7,6 +7,9 @@ import Component from "./Component";
 const style = {};
 const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
   const ref = useRef(null);
+
+  //Line that adds the all the component's size and subtracts it from the subsection's size to find the available size inside the subsection
+  const [availableSize, setAvailableSize] = useState(() => data.size - data.children.reduce((a, b) => a + b.size, 0));
 
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -57,6 +60,7 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
                 type: COMPONENT
               }}
               onDrop={handleDrop}
+              availableSize={availableSize}
               className="horizontalDrag"
             />
             {(component.size>2) && <DropZone
@@ -67,6 +71,7 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
                 modify: true
               }}
               onDrop={handleDrop}
+              availableSize={availableSize}
               className="horizontalDrag"
             />}
             {renderComponent(component, currentPath, data.size)}
@@ -78,6 +83,7 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
                 modify: true
               }}
               onDrop={handleDrop}
+              availableSize={availableSize}
               className="horizontalDrag"
             />}
           </React.Fragment>
@@ -90,6 +96,7 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
           type: COMPONENT
         }}
         onDrop={handleDrop}
+        availableSize={availableSize}
         className="horizontalDrag"
         isLast
       />
