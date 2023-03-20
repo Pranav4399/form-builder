@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDrag } from "react-dnd";
-import { SECTION } from "./constants";
+import { SECTION, SUPERSECTION_SIZE } from "./constants";
 import DropZone from "./DropZone";
 import SubSection from "./SubSection";
 import { SUBSECTION, CANVAS } from "./constants";
