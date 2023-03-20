@@ -125,3 +125,4 @@ export const handleDropEvent = (layout, dropZone, item) => {
   }
 }
 
+export const  getAvailableSize = (data) => (data.size - data.children.reduce((a, b) => a + b.size, 0));

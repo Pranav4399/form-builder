@@ -4,12 +4,13 @@ import { SECTION } from "./constants";
 import DropZone from "./DropZone";
 import SubSection from "./SubSection";
 import { SUBSECTION, CANVAS } from "./constants";
+import { getAvailableSize } from "./helpers";
 
 const Section = ({ data, components, handleDrop, path }) => {
   const ref = useRef(null);
 
   //Line that adds the all the subsection's size and subtracts it from the section's size to find the available size inside the section
-  const [availableSize, setAvailableSize] = useState(() => data.size - data.children.reduce((a, b) => a + b.size, 0));
+  const [availableSize, setAvailableSize] = useState(getAvailableSize(data));
 
   const [{ isDragging }, drag] = useDrag({
     item: {
