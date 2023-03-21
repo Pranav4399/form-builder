@@ -67,6 +67,7 @@ const Section = ({ data, components, handleDrop, path }) => {
           );
         })}
         <DropZone
+          style= {{flex: availableSize/data.size}}
           data={{
             path: [...path, data.children.length],
             childrenCount: data.children.length,
