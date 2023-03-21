@@ -4,7 +4,10 @@
   "description": "",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://Pranav4399.github.io/form-builder",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -31,5 +34,6 @@
   ],
   "keywords": [],
   "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
