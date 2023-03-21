@@ -39,20 +39,46 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
     );
   };
 
+  
+  let cummulativeSize = 0;
+  let newLineflag = false;
+
   return (
     <div
       ref={ref}
-      style={{ ...style, opacity, flex: data.size/sectionSize }}
+      style={{ ...style, opacity, flex: data.size/sectionSize}}
       className="base draggable subSection"
     >
       <div className="subSectionLabel">{data.id}{' '}{data.size}</div>
       <div className="componentContainer">
       {data.children.map((component, index) => {
+        newLineflag = false;
+
         const currentPath = [...path, index];
         const siblingPath = [...path, index + 1];
+        
+        cummulativeSize+=component.size;
+
+        if(cummulativeSize > data.size) {
+          cummulativeSize -= data.size;
+          newLineflag = true;
+        }
 
         return (
           <React.Fragment key={component.id}>
+            {(newLineflag == true) && <><DropZone
+              data={{
+                path: currentPath,
+                childrenCount: data.children.length,
+                type: COMPONENT,
+                availableSize: Math.max(availableSize, COMPONENT_MIN_SIZE)
+              }}
+              onDrop={handleDrop}
+              availableSize={Math.max(availableSize, COMPONENT_MIN_SIZE)}
+              className="horizontalDrag"
+            />
+            <div className="separator"></div>
+            </>}
             <DropZone
               data={{
                 path: currentPath,
