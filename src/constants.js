@@ -10,6 +10,7 @@ export const CANVAS = "canvas";
 export const NEW = "new";
 
 export const SUPERSECTION_SIZE = 12;
+export const COMPONENT_MIN_SIZE = 2;
 
 export const HIERARCHY = [SUPERSECTION, SECTION, SUBSECTION, COMPONENT];
 

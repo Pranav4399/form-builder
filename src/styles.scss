@@ -41,7 +41,7 @@ body {
 }
 
 .dropZone.horizontalDrag {
-  width: 10px;
+  min-width: 10px;
   height: auto;
 }
 

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDrag } from "react-dnd";
-import { SUBCOMPONENT, COMPONENT, SUBSECTION, CANVAS } from "./constants";
+import { COMPONENT_MIN_SIZE, COMPONENT, SUBSECTION, CANVAS } from "./constants";
 import DropZone from "./DropZone";
 import Component from "./Component";
 import { getAvailableSize } from "./helpers";
@@ -58,49 +58,50 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
                 path: currentPath,
                 childrenCount: data.children.length,
                 type: COMPONENT,
-                availableSize: availableSize
+                availableSize: Math.max(availableSize, COMPONENT_MIN_SIZE)
               }}
               onDrop={handleDrop}
-              availableSize={availableSize}
+              availableSize={Math.max(availableSize, COMPONENT_MIN_SIZE)}
               className="horizontalDrag"
             />
-            {(component.size>2) && <DropZone
+            {(component.size>3) && <DropZone
               data={{
                 path: currentPath,
                 childrenCount: data.children.length,
                 type: COMPONENT,
                 modify: true,
-                availableSize: availableSize
+                availableSize: component.size/2
               }}
               onDrop={handleDrop}
-              availableSize={availableSize}
+              availableSize={component.size/2}
               className="horizontalDrag"
             />}
             {renderComponent(component, currentPath, data.size)}
-            {(component.size>2) && <DropZone
+            {(component.size>3) && <DropZone
               data={{
                 path: siblingPath,
                 childrenCount: data.children.length,
                 type: COMPONENT,
                 modify: true,
-                availableSize: availableSize
+                availableSize: component.size/2
               }}
               onDrop={handleDrop}
-              availableSize={availableSize}
+              availableSize={component.size/2}
               className="horizontalDrag"
             />}
           </React.Fragment>
         );
       })}
       <DropZone
+        style= {{flex: availableSize/data.size}}
         data={{
           path: [...path, data.children.length],
           childrenCount: data.children.length,
           type: COMPONENT,
-          availableSize: availableSize
+          availableSize: Math.max(availableSize, COMPONENT_MIN_SIZE)
         }}
         onDrop={handleDrop}
-        availableSize={availableSize}
+        availableSize={Math.max(availableSize, COMPONENT_MIN_SIZE)}
         className="horizontalDrag"
         isLast
       />
