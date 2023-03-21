@@ -1,12 +1,15 @@
 {
-  "name": "dustbin-proto-dnd-reordering-nested-column-to-diff-parent-forked-modified",
+  "homepage": "https://Pranav4399.github.io/form-builder",
+  "name": "form-builder",
   "main": "src/index.js",
   "description": "",
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts build",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -20,8 +23,8 @@
     "react-dom": "16.8.4",
     "react-frame-component": "^4.1.0",
     "react-scripts": "^4.0.3",
-    "shortid": "2.2.15",
-    "sass": "^1.59.3"
+    "sass": "^1.59.3",
+    "shortid": "2.2.15"
   },
   "browserslist": [
     ">0.2%",
@@ -31,5 +34,6 @@
   ],
   "keywords": [],
   "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
