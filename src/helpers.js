@@ -1,5 +1,5 @@
 import shortid from "shortid";
-import { SECTION, SUBSECTION, SUBCOMPONENT, COMPONENT, SUPERSECTION, NEW, CANVAS, HEIRARCHY, SUPERSECTION_SIZE } from "./constants";
+import { SECTION, SUBSECTION, SUBCOMPONENT, COMPONENT, SUPERSECTION, NEW, CANVAS, HIERARCHY, SUPERSECTION_SIZE } from "./constants";
 
 //--------------------------------
 
@@ -55,12 +55,12 @@ export const insertModify = (arr, index, newItem) => {
 
 export const handleDropEvent = (layout, dropZone, item) => {
 
-  
+
   const wrapItemRecursive = (item, targetType, availableSize) => {
     while (item.type !== targetType) {
-      let curIndex = HEIRARCHY.indexOf(item.type);
+      let curIndex = HIERARCHY.indexOf(item.type);
       item = {
-        type: HEIRARCHY[curIndex-1],
+        type: HIERARCHY[curIndex-1],
         id: shortid.generate(),
         children: [
           {
@@ -83,7 +83,6 @@ export const handleDropEvent = (layout, dropZone, item) => {
 
   const insertJSONRecursive = (layout, i, target, parentSize) => {
 
-    console.log(layout);
     if(i != target) {
 
       let layoutChildren = layout[dropZone.path[i]].children;
@@ -99,8 +98,7 @@ export const handleDropEvent = (layout, dropZone, item) => {
       availableSize = item.size;
     
     //if dropping at new supersection level
-    if(target > 1)
-      availableSize-= layout.map(el => el.size).reduce((a,b) => {return a+b});
+    if(target < 1) availableSize-= layout.map(el => el.size).reduce((a,b) => {return a+b});
 
     return dropZone.modify == true? insertModify(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type, availableSize))
     : insert(layout, dropZone.path[dropZone.path.length-1], wrapItemRecursive(item, dropZone.type, availableSize));
@@ -118,10 +116,10 @@ export const handleDropEvent = (layout, dropZone, item) => {
   }
 
   if(item.origin === NEW)
-    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, SUPERSECTION_SIZE);
+    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, dropZone.availableSize);
   else {
     layout = removeJSONRecursive(layout, 0, item.path.length - 1);
-    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, SUPERSECTION_SIZE);
+    return insertJSONRecursive(layout, 0, dropZone.path.length - 1, dropZone.availableSize);
   }
 }
 

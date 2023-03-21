@@ -11,7 +11,7 @@ export const NEW = "new";
 
 export const SUPERSECTION_SIZE = 12;
 
-export const HEIRARCHY = [SUPERSECTION, SECTION, SUBSECTION, COMPONENT];
+export const HIERARCHY = [SUPERSECTION, SECTION, SUBSECTION, COMPONENT];
 
 export const SIDEBAR_ITEMS = [
   {

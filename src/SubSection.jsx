@@ -8,9 +8,8 @@ import { getAvailableSize } from "./helpers";
 const style = {};
 const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
   const ref = useRef(null);
-
-  //Line that adds the all the component's size and subtracts it from the subsection's size to find the available size inside the subsection
-  const [availableSize, setAvailableSize] = useState(getAvailableSize(data));
+  //Calling the function that adds all the component's size and subtracts it from the subsection's size to find the available size inside the subsection
+  let availableSize = getAvailableSize(data);
 
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -58,7 +57,8 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
               data={{
                 path: currentPath,
                 childrenCount: data.children.length,
-                type: COMPONENT
+                type: COMPONENT,
+                availableSize: availableSize
               }}
               onDrop={handleDrop}
               availableSize={availableSize}
@@ -69,7 +69,8 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
                 path: currentPath,
                 childrenCount: data.children.length,
                 type: COMPONENT,
-                modify: true
+                modify: true,
+                availableSize: availableSize
               }}
               onDrop={handleDrop}
               availableSize={availableSize}
@@ -81,7 +82,8 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
                 path: siblingPath,
                 childrenCount: data.children.length,
                 type: COMPONENT,
-                modify: true
+                modify: true,
+                availableSize: availableSize
               }}
               onDrop={handleDrop}
               availableSize={availableSize}
@@ -94,7 +96,8 @@ const SubSection = ({ data, components, handleDrop, path, sectionSize }) => {
         data={{
           path: [...path, data.children.length],
           childrenCount: data.children.length,
-          type: COMPONENT
+          type: COMPONENT,
+          availableSize: availableSize
         }}
         onDrop={handleDrop}
         availableSize={availableSize}

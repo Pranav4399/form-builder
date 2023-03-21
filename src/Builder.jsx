@@ -57,7 +57,8 @@ const Builder = () => {
                 data={{
                   path: [supersectionindex],
                   childrenCount: el.length,
-                  type: SUPERSECTION
+                  type: SUPERSECTION,
+                  availableSize: SUPERSECTION_SIZE
                 }}
                 onDrop={handleDrop}
                 availableSize={SUPERSECTION_SIZE}
@@ -81,7 +82,8 @@ const Builder = () => {
                   data={{
                     path: [supersectionindex, el.children.length],
                     childrenCount: el.children.length,
-                    type: SECTION
+                    type: SECTION,
+                    availableSize: availableSize
                   }}
                   className="horizontalDrag"
                   onDrop={handleDrop}
@@ -96,7 +98,8 @@ const Builder = () => {
             data={{
               path: [layout.length],
               childrenCount: layout.length,
-              type: SUPERSECTION
+              type: SUPERSECTION,
+              availableSize: SUPERSECTION_SIZE
             }}
             onDrop={handleDrop}
             availableSize={SUPERSECTION_SIZE}
