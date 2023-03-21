@@ -9,8 +9,8 @@ import { getAvailableSize } from "./helpers";
 const Section = ({ data, components, handleDrop, path }) => {
   const ref = useRef(null);
 
-  //Line that adds the all the subsection's size and subtracts it from the section's size to find the available size inside the section
-  const [availableSize, setAvailableSize] = useState(getAvailableSize(data));
+  //Calling the function that adds all the subsection's size and subtracts it from the section's size to find the available size inside the section
+  let availableSize = getAvailableSize(data);
 
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -55,7 +55,8 @@ const Section = ({ data, components, handleDrop, path }) => {
                 data={{
                   path: currentPath,
                   childrenCount: data.children.length,
-                  type: SUBSECTION
+                  type: SUBSECTION,
+                  availableSize: availableSize
                 }}
                 onDrop={handleDrop}
                 availableSize={availableSize}
@@ -69,7 +70,8 @@ const Section = ({ data, components, handleDrop, path }) => {
           data={{
             path: [...path, data.children.length],
             childrenCount: data.children.length,
-            type: SUBSECTION
+            type: SUBSECTION,
+            availableSize: availableSize
           }}
           onDrop={handleDrop}
           availableSize={availableSize}

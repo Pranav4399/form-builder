@@ -15,6 +15,10 @@ const DropZone = ({style, data, onDrop, isLast, className, availableSize }) => {
     canDrop: (item, monitor) => {
       const dropZonePath = data.path;
       const itemPath = item.path;
+      //Check if the availableSize of dropZone is more than 0 before dropping anything
+      //But this statement also prevents rearranging of existing items inside the parent. Need to fix that
+      if(availableSize < 1)
+        return false;
       
       // sidebar items can always be dropped anywhere
       if (!itemPath) {
